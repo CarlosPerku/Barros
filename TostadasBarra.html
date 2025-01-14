@@ -173,7 +173,7 @@
 
         // Cargar datos desde CSV
         async function loadMenu() {
-            const response = await fetch('datos.csv');
+            const response = await fetch('TostadasBarra.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
