@@ -80,6 +80,20 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            background-color: #f4a261;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #e76f51;
+        }
         footer {
             position: fixed;
             bottom: 0;
@@ -101,6 +115,9 @@
         <h2>Tostadas Pan de Barra</h2>
         <table id="menu-table"></table>
     </div>
+
+    <!-- Botón para volver -->
+    <button class="back-button" onclick="location.href='Tostadas.html';">Volver</button>
 
     <div class="modal" id="modal">
         <h3 id="modal-title"></h3>
@@ -125,7 +142,7 @@
         // Mostrar modal con detalles
         function showDetails(name, details) {
             modalTitle.textContent = name;
-            modalDetails.textContent = details.replaceAll('"', '');
+            modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
             modal.style.display = 'block';
         }
 
@@ -146,7 +163,6 @@
                         <td>${priceFull ? `Entera: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
                         <td>${priceHalf ? `Media: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
-					
                     table.appendChild(tr);
                 }
             });
