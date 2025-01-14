@@ -28,6 +28,47 @@
             margin-left: 20px;
             cursor: pointer;
         }
+        .menu-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .menu-icon:hover {
+            color: #f4a261;
+        }
+        nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background-color: rgba(44, 44, 44, 0.95);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            padding: 20px;
+            text-align: center;
+        }
+        nav.open {
+            display: block;
+        }
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
         .menu-section {
             width: 90%;
             max-width: 600px;
@@ -60,8 +101,8 @@
             transform: translate(-50%, -50%);
             width: 90%;
             max-width: 400px;
-            background-color: #f9f6f1; /* Fondo color crema */
-            color: #333; /* Texto en negro */
+            background-color: #f9f6f1;
+            color: #333;
             border-radius: 10px;
             z-index: 2000;
             padding: 20px;
@@ -109,7 +150,16 @@
 <body>
     <header>
         <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
     </header>
+
+    <nav id="menu">
+        <a href="Index.html">Menú Principal</a>
+        <a href="Tostadas.html">Tostadas</a>
+        <a href="Gofres.html">Gofres</a>
+        <a href="Croissant.html">Croissant</a>
+        <a href="#" onclick="closeMenu()">Cerrar</a>
+    </nav>
 
     <div class="menu-section">
         <h2>Tostadas Pan de Barra</h2>
@@ -130,23 +180,30 @@
     </footer>
 
     <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
         const modal = document.getElementById('modal');
         const modalTitle = document.getElementById('modal-title');
         const modalDetails = document.getElementById('modal-details');
 
-        // Cerrar modal
+        function toggleMenu() {
+            menu.classList.toggle('open');
+        }
+
+        function closeMenu() {
+            menu.classList.remove('open');
+        }
+
         function closeModal() {
             modal.style.display = 'none';
         }
 
-        // Mostrar modal con detalles
         function showDetails(name, details) {
             modalTitle.textContent = name;
             modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
             modal.style.display = 'block';
         }
 
-        // Cargar datos desde CSV
         async function loadMenu() {
             const response = await fetch('TostadasBarra.csv');
             const data = await response.text();
