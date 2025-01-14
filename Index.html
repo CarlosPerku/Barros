@@ -12,32 +12,37 @@
             background-color: #ffffff;
         }
         header {
-            position: fixed;
-            top: 0;
+            position: relative;
             width: 100%;
             background-color: #2c2c2c;
             color: white;
-            padding: 10px;
+            padding: 20px 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
         header img {
-            height: 40px;
-            margin-left: 20px;
+            height: 80px; /* Incrementado para hacerlo más grande */
             cursor: pointer;
         }
-        .menu {
-            margin-right: 20px;
+        main {
+            text-align: center;
+            margin-top: 40px;
+        }
+        main h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
         }
         button {
             background-color: #f4a261;
             border: none;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border-radius: 5px;
             cursor: pointer;
-            margin: 5px;
+            margin: 10px;
+            font-size: 1rem;
         }
         button:hover {
             background-color: #e76f51;
@@ -48,30 +53,34 @@
             width: 100%;
             background-color: #2c2c2c;
             color: white;
-            font-size: 10px;
+            font-size: 8pt;
             text-align: center;
             padding: 10px 0;
         }
     </style>
 </head>
 <body>
+    <!-- Cabecera -->
     <header>
-        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros">
-        <div class="menu">
-            <a href="index.html">Menú Principal</a>
-        </div>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='index.html';">
     </header>
-    <main style="text-align: center; margin-top: 80px;">
+
+    <!-- Contenido Principal -->
+    <main>
         <h1>Bienvenidos al Barros</h1>
         <a href="Desayunos.html"><button>Desayunos y Meriendas</button></a>
         <a href="platos.html"><button>Platos Principales</button></a>
         <a href="postres.html"><button>Postres</button></a>
         <a href="bebidas.html"><button>Bebidas</button></a>
     </main>
+
+    <!-- Pie de Página -->
     <footer>
         © <span id="year"></span> Barros A Guarda
     </footer>
+
     <script>
+        // Actualizar automáticamente el año en el pie de página
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
