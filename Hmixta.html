@@ -233,8 +233,8 @@
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${priceFull ? `Entera: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
-                        <td>${priceHalf ? `Media: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${priceFull ? `200gr.: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${priceHalf ? `100gr.: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
                     table.appendChild(tr);
                 }
