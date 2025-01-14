@@ -221,7 +221,7 @@
         }
 
         async function loadMenu() {
-            const response = await fetch('GSalados.csv');
+            const response = await fetch('gsalados.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
