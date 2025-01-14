@@ -56,12 +56,12 @@
         nav.open {
             display: block;
         }
-		        nav .menu-button {
+        nav .menu-button {
             display: block;
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
-            margin: 10px 0; /* Espaciado adecuado entre botones */
+            margin: 10px 0;
             padding: 10px 15px;
             transition: background-color 0.3s;
             background-color: #f4a261;
@@ -69,19 +69,6 @@
         }
         nav .menu-button:hover {
             background-color: #e76f51;
-        }
-        nav a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            margin: 10px 0;
-            padding: 5px 10px;
-            transition: background-color 0.3s;
-        }
-        nav a:hover {
-            background-color: #f4a261;
-            border-radius: 5px;
         }
         .menu-section {
             width: 90%;
@@ -98,6 +85,12 @@
             border-collapse: collapse;
             margin-top: 10px;
         }
+        table th {
+            text-align: center;
+            font-weight: bold;
+            background-color: transparent;
+            padding: 10px 0;
+        }
         table tr, table td {
             border: none;
             padding: 10px;
@@ -105,7 +98,7 @@
             cursor: pointer;
         }
         table td:nth-child(2), table td:nth-child(3) {
-            text-align: right;
+            text-align: center;
         }
         .modal {
             display: none;
@@ -179,7 +172,16 @@
 
     <div class="menu-section">
         <h2>Bocadillos Fríos</h2>
-        <table id="menu-table"></table>
+        <table id="menu-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Entero</th>
+                    <th>Medio</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
     <!-- Botón para volver -->
@@ -225,7 +227,7 @@
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
-            const table = document.getElementById('menu-table');
+            const tableBody = document.querySelector('#menu-table tbody');
             rows.forEach(row => {
                 const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
@@ -233,10 +235,10 @@
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${priceFull ? `Entero: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
-                        <td>${priceHalf ? `Medio: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
-                    table.appendChild(tr);
+                    tableBody.appendChild(tr);
                 }
             });
         }
