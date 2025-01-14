@@ -28,20 +28,50 @@
             margin-left: 20px;
             cursor: pointer;
         }
-        .menu {
+        .menu-icon {
+            font-size: 1.5rem;
             margin-right: 20px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 1100;
         }
-        .menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            margin: 0 10px;
-        }
-        .menu a:hover {
+        .menu-icon:hover {
             color: #f4a261;
         }
+        nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 300px;
+            background-color: rgba(44, 44, 44, 0.95);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+            padding: 20px;
+            text-align: center;
+        }
+        nav.open {
+            display: block;
+        }
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
         .menu-section {
-            width: 80%;
+            width: 90%;
             max-width: 600px;
             margin: 100px auto 20px;
             padding: 20px;
@@ -70,14 +100,16 @@
             text-align: right;
         }
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
             background-color: #f4a261;
-            color: white;
             border: none;
+            color: white;
+            padding: 15px 20px;
             border-radius: 5px;
             cursor: pointer;
+            margin: 10px 0;
             font-size: 1rem;
+            width: 90%;
+            max-width: 300px;
         }
         button:hover {
             background-color: #e76f51;
@@ -98,11 +130,15 @@
     <!-- Cabecera -->
     <header>
         <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
-        <div class="menu">
-            <a href="Index.html">Menú Principal</a>
-            <a href="Tostadas.html">Tostadas</a>
-        </div>
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
     </header>
+
+    <!-- Menú flotante -->
+    <nav id="menu">
+        <a href="Index.html">Menú Principal</a>
+        <a href="Desayunos.html">Desayunos y Meriendas</a>
+        <a href="Tostadas.html">Tostadas</a>
+    </nav>
 
     <!-- Sección de Tostadas Pan de Barra -->
     <div class="menu-section">
@@ -138,6 +174,15 @@
     </footer>
 
     <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+
+        // Alternar apertura/cierre del menú
+        function toggleMenu() {
+            menu.classList.toggle('open');
+            menuIcon.textContent = menu.classList.contains('open') ? '✖' : '☰';
+        }
+
         // Actualizar el año automáticamente
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
