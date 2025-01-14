@@ -167,7 +167,7 @@
         // Mostrar modal con detalles
         function showDetails(name, details) {
             modalTitle.textContent = name;
-            modalDetails.textContent = details;
+            modalDetails.textContent = details.replaceAll('"', '');
             modal.style.display = 'block';
         }
 
@@ -179,14 +179,14 @@
 
             const table = document.getElementById('menu-table');
             rows.forEach(row => {
-                const [name, priceFull, priceHalf, details] = row.split(',');
+                const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td onclick="showDetails('${name}', '${details.trim()}')">${name}</td>
-                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2)} €` : ''}</td>
-                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2)} €` : ''}</td>
+                        <td>${priceFull ? `Entera: ${parseFloat(priceFull).toFixed(2)} €` : ''}</td>
+                        <td>${priceHalf ? `Media: ${parseFloat(priceHalf).toFixed(2)} €` : ''}</td>
                     `;
                     table.appendChild(tr);
                 }
