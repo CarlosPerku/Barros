@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Barros</title>
+    <style>
+        body {
+            font-family: Noteworthy, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #2c2c2c; /* Gris ceniza oscuro */
+            color: white;
+            padding: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header img {
+            height: 40px;
+            margin-left: 20px;
+        }
+        .menu-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .menu-icon:hover {
+            color: #f4a261; /* Cambio de color al pasar el ratón */
+        }
+        nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 100vh;
+            background-color: #2c2c2c;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: -5px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
+        .hidden {
+            display: none;
+        }
+        .visible {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding-top: 70px; /* Espacio para el header */
+        }
+        .menu-section {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #2c2c2c; /* Gris ceniza oscuro */
+            color: white;
+            border-radius: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table tr, table td {
+            border: none;
+            background-color: transparent;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #e76f51;
+        }
+        footer {
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            padding: 10px 0;
+            background-color: rgba(44, 44, 44, 0.9);
+            color: white;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros">
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <!-- Menú desplegable -->
+    <nav id="menu">
+        <a href="#" onclick="navegarASeccion('menu-principal')">Menú Principal</a>
+        <a href="#" onclick="navegarASeccion('entradas')">Entradas</a>
+        <a href="#" onclick="navegarASeccion('platos-principales')">Platos principales</a>
+        <a href="#" onclick="navegarASeccion('postres')">Postres</a>
+        <a href="#" onclick="navegarASeccion('bebidas')">Bebidas</a>
+    </nav>
+
+    <!-- Ventana principal -->
+    <div id="menu-principal" class="visible">
+        <h1>Bienvenidos al Barros</h1>
+        <button onclick="mostrarSeccion('entradas')">Entradas</button>
+        <button onclick="mostrarSeccion('platos-principales')">Platos principales</button>
+        <button onclick="mostrarSeccion('postres')">Postres</button>
+        <button onclick="mostrarSeccion('bebidas')">Bebidas</button>
+    </div>
+
+    <!-- Secciones -->
+    <div id="entradas" class="hidden">
+        <div class="menu-section">
+            <h2>Entradas</h2>
+            <table>
+                <tr>
+                    <td>Ensalada César</td>
+                    <td>8,00 €</td>
+                </tr>
+                <tr>
+                    <td>Sopa del día</td>
+                    <td>6,50 €</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="platos-principales" class="hidden">
+        <div class="menu-section">
+            <h2>Platos principales</h2>
+            <table>
+                <tr>
+                    <td>Solomillo</td>
+                    <td>15,00 €</td>
+                </tr>
+                <tr>
+                    <td>Merluza a la plancha</td>
+                    <td>13,50 €</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="postres" class="hidden">
+        <div class="menu-section">
+            <h2>Postres</h2>
+            <table>
+                <tr>
+                    <td>Flan casero</td>
+                    <td>4,00 €</td>
+                </tr>
+                <tr>
+                    <td>Tarta de queso</td>
+                    <td>5,00 €</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="bebidas" class="hidden">
+        <div class="menu-section">
+            <h2>Bebidas</h2>
+            <table>
+                <tr>
+                    <td>Refresco</td>
+                    <td>2,00 €</td>
+                </tr>
+                <tr>
+                    <td>Café</td>
+                    <td>1,50 €</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        © <span id="year"></span> Barros A Guarda
+    </footer>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+
+        function toggleMenu() {
+            const isVisible = menu.style.display === 'flex';
+            menu.style.display = isVisible ? 'none' : 'flex';
+            menuIcon.textContent = isVisible ? '☰' : '✖';
+        }
+
+        function navegarASeccion(seccionId) {
+            toggleMenu();
+            mostrarSeccion(seccionId);
+        }
+
+        function mostrarSeccion(seccionId) {
+            document.querySelectorAll('.visible, .hidden').forEach(seccion => {
+                seccion.classList.add('hidden');
+                seccion.classList.remove('visible');
+            });
+            document.getElementById(seccionId).classList.add('visible');
+            document.getElementById(seccionId).classList.remove('hidden');
+        }
+
+        // Actualizar el año automáticamente
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
