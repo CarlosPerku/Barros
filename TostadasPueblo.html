@@ -90,7 +90,7 @@
             text-align: left;
             cursor: pointer;
         }
-        table td:nth-child(2), table td:nth-child(3) {
+        table td:nth-child(2) {
             text-align: right;
         }
         .modal {
@@ -155,10 +155,12 @@
 
     <nav id="menu">
         <a href="Index.html">Menú Principal</a>
-        <a href="Tostadas.html">Tostadas</a>
-        <a href="Gofres.html">Gofres</a>
-        <a href="Croissant.html">Croissant</a>
-        <a href="#" onclick="closeMenu()">Cerrar</a>
+        <a href="Desayunos.html"><button>Desayunos y Meriendas</button></a>
+            <a href="EntrePanes.html"><button>Entre Panes</button></a>
+            <a href="Ensaladas.html"><button>Piensa en Verde</button></a>
+            <a href="Platos.html"><button>Con Cuchillo y Tenedor</button></a>
+            <a href="Picabarros.html"><button>PicaBarros</button></a>
+            <a href="Postres.html"><button>Momentos Dulces</button></a>
     </nav>
 
     <div class="menu-section">
@@ -211,14 +213,13 @@
 
             const table = document.getElementById('menu-table');
             rows.forEach(row => {
-                const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const [name, price, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${priceFull ? `Entera: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
-                        <td>${priceHalf ? `Media: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
                     table.appendChild(tr);
                 }
