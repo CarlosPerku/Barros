@@ -1,4 +1,4 @@
-Nombre,Precio,Detalles
-"Cremas", 0.50, "Opciones: Nutella, Cookies, Oreo, Kinder, Lotus, Mermelada, Kit Kat, Nata. Alérgenos: "
-"Toppings", 0.50, "Opciones: Oreo, Mini Lacasitos, Kinder Bueno, Lotus, Kit Kat, Mini Nubes, Coguitos, Almendra, Nueces. Alérgenos: "
-"Siropes", 0.20, "Opciones: Chocolate, Toffe, Fresa, Frutos del Bosque, Caramelo, Miel. Alérgenos: "
+Nombre,Precio Entera,Precio Media,Detalles
+"Cremas",0.50,"Opciones: Nutella, Cookies, Oreo, Kinder, Lotus, Mermelada, Kit Kat, Nata. Alérgenos: "
+"Toppings",0.50,"Opciones: Oreo, Mini Lacasitos, Kinder Bueno, Lotus, Kit Kat, Mini Nubes, Coguitos, Almendra, Nueces. Alérgenos: "
+"Siropes",0.20,"Opciones: Chocolate, Toffe, Fresa, Frutos del Bosque, Caramelo, Miel. Alérgenos: "
