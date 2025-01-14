@@ -57,31 +57,31 @@
         nav.open {
             display: block;
         }
-        nav a {
+        nav .menu-button {
             display: block;
             color: white;
             text-decoration: none;
-            font-size: 1rem;
-            margin: 5px 0; /* Espaciado vertical reducido */
-            padding: 8px 15px; /* Tamaño de los botones */
+            font-size: 1.2rem;
+            margin: 10px 0; /* Espaciado adecuado entre botones */
+            padding: 10px 15px;
             transition: background-color 0.3s;
             background-color: #f4a261;
             border-radius: 5px;
         }
-        nav a:hover {
+        nav .menu-button:hover {
             background-color: #e76f51;
         }
         button {
             background-color: #f4a261;
             border: none;
             color: white;
-            padding: 10px 15px;
+            padding: 15px 20px;
             border-radius: 5px;
             cursor: pointer;
-            margin: 10px auto; /* Centrado con espaciado vertical */
+            margin: 10px 0; /* Espaciado vertical */
             font-size: 1rem;
-            display: block;
-            width: 80%;
+            width: 90%; /* Ocupa el 90% del ancho del contenedor */
+            max-width: 300px;
         }
         button:hover {
             background-color: #e76f51;
@@ -111,13 +111,13 @@
 
     <!-- Menú flotante -->
     <nav id="menu">
-        <a href="Index.html">Menú Principal</a>
-        <a href="Desayunos.html">Desayunos y Meriendas</a>
-        <a href="EntrePanes.html">Entre Panes</a>
-        <a href="Ensaladas.html">Piensa en Verde</a>
-        <a href="Platos.html">Con Cuchillo y Tenedor</a>
-        <a href="Picabarros.html">PicaBarros</a>
-        <a href="Postres.html">Momentos Dulces</a>
+        <a href="Index.html" class="menu-button">Menú Principal</a>
+        <a href="Desayunos.html" class="menu-button">Desayunos y Meriendas</a>
+        <a href="EntrePanes.html" class="menu-button">Entre Panes</a>
+        <a href="Ensaladas.html" class="menu-button">Piensa en Verde</a>
+        <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
+        <a href="Picabarros.html" class="menu-button">PicaBarros</a>
+        <a href="Postres.html" class="menu-button">Momentos Dulces</a>
     </nav>
 
     <!-- Contenido Principal -->
