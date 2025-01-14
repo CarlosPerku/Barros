@@ -44,7 +44,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%; /* Más ancho para móviles */
+            width: 90%;
             max-width: 300px;
             background-color: rgba(44, 44, 44, 0.95);
             color: white;
@@ -61,26 +61,27 @@
             display: block;
             color: white;
             text-decoration: none;
-            font-size: 1.2rem;
-            margin: 10px 0; /* Espaciado vertical */
-            padding: 10px 15px;
+            font-size: 1rem;
+            margin: 5px 0; /* Espaciado vertical reducido */
+            padding: 8px 15px; /* Tamaño de los botones */
             transition: background-color 0.3s;
-        }
-        nav a:hover {
             background-color: #f4a261;
             border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #e76f51;
         }
         button {
             background-color: #f4a261;
             border: none;
             color: white;
-            padding: 15px 20px;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            margin: 10px 0; /* Espaciado vertical */
+            margin: 10px auto; /* Centrado con espaciado vertical */
             font-size: 1rem;
-            width: 90%; /* Ocupa el 90% del ancho del contenedor */
-            max-width: 300px;
+            display: block;
+            width: 80%;
         }
         button:hover {
             background-color: #e76f51;
@@ -111,12 +112,12 @@
     <!-- Menú flotante -->
     <nav id="menu">
         <a href="Index.html">Menú Principal</a>
-        <a href="Desayunos.html"><button>Desayunos y Meriendas</button></a>
-            <a href="EntrePanes.html"><button>Entre Panes</button></a>
-            <a href="Ensaladas.html"><button>Piensa en Verde</button></a>
-            <a href="Platos.html"><button>Con Cuchillo y Tenedor</button></a>
-            <a href="Picabarros.html"><button>PicaBarros</button></a>
-            <a href="Postres.html"><button>Momentos Dulces</button></a>
+        <a href="Desayunos.html">Desayunos y Meriendas</a>
+        <a href="EntrePanes.html">Entre Panes</a>
+        <a href="Ensaladas.html">Piensa en Verde</a>
+        <a href="Platos.html">Con Cuchillo y Tenedor</a>
+        <a href="Picabarros.html">PicaBarros</a>
+        <a href="Postres.html">Momentos Dulces</a>
     </nav>
 
     <!-- Contenido Principal -->
