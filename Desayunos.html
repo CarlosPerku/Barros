@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desayunos y Meriendas - Carta de Barros</title>
+    <style>
+        body {
+            font-family: "Noteworthy", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header img {
+            height: 40px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .menu {
+            margin-right: 20px;
+        }
+        button {
+            background-color: #f4a261;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #e76f51;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='index.html';">
+        <div class="menu">
+            <a href="index.html">Menú Principal</a>
+        </div>
+    </header>
+    <main style="text-align: center; margin-top: 80px;">
+        <h1>Desayunos y Meriendas</h1>
+        <a href="cafe.html"><button>Cafés</button></a>
+        <a href="pasteleria.html"><button>Pastelería</button></a>
+        <a href="tostadas.html"><button>Tostadas</button></a>
+        <a href="zumos.html"><button>Zumos y Smoothies</button></a>
+        <a href="especialidades.html"><button>Especialidades</button></a>
+    </main>
+    <footer>
+        © <span id="year"></span> Barros A Guarda
+    </footer>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
