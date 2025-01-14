@@ -16,35 +16,47 @@
             width: 100%;
             background-color: #2c2c2c;
             color: white;
-            padding: 20px 0;
+            padding: 15px 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         header img {
-            height: 80px; /* Incrementado para hacerlo más grande */
+            height: 70px;
             cursor: pointer;
         }
         main {
             text-align: center;
-            margin-top: 40px;
+            margin: 20px 0;
+            padding: 0 20px;
         }
         main h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 20px;
             color: #333;
         }
-        button {
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .button-container a {
+            text-decoration: none;
+            width: 100%;
+            max-width: 300px;
+        }
+        .button-container button {
             background-color: #f4a261;
             border: none;
             color: white;
-            padding: 15px 30px;
+            padding: 15px;
             border-radius: 5px;
-            cursor: pointer;
-            margin: 10px;
             font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
         }
-        button:hover {
+        .button-container button:hover {
             background-color: #e76f51;
         }
         footer {
@@ -68,12 +80,14 @@
     <!-- Contenido Principal -->
     <main>
         <h1>Bienvenid@</h1>
-        <a href="Desayunos.html"><button>Desayunos y Meriendas</button></a>
-        <a href="EntrePanes.html"><button>Entre Panes</button></a>
-        <a href="Ensaladas.html"><button>Piensa en Verde</button></a>
-        <a href="Platos.html"><button>Con Cuchillo y Tenedor</button></a>
-		<a href="Picabarros.html"><button>PicaBarros</button></a>
-		<a href="Postres.html"><button>Momentos Dulces</button></a>
+        <div class="button-container">
+            <a href="Desayunos.html"><button>Desayunos y Meriendas</button></a>
+            <a href="EntrePanes.html"><button>Entre Panes</button></a>
+            <a href="Ensaladas.html"><button>Piensa en Verde</button></a>
+            <a href="Platos.html"><button>Con Cuchillo y Tenedor</button></a>
+            <a href="Picabarros.html"><button>PicaBarros</button></a>
+            <a href="Postres.html"><button>Momentos Dulces</button></a>
+        </div>
     </main>
 
     <!-- Pie de Página -->
