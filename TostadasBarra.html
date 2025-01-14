@@ -125,10 +125,7 @@
         // Mostrar modal con detalles
         function showDetails(name, details) {
             modalTitle.textContent = name;
-            const formattedDetails = details
-                .replaceAll('"', '') // Eliminar comillas
-                .replace(/Alergenos/i, '\n\nAlergenos'); // Doble salto antes de "Alergenos"
-            modalDetails.textContent = formattedDetails;
+            modalDetails.textContent = details.replaceAll('"', '');
             modal.style.display = 'block';
         }
 
@@ -149,6 +146,7 @@
                         <td>${priceFull ? `Entera: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
                         <td>${priceHalf ? `Media: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
+					
                     table.appendChild(tr);
                 }
             });
