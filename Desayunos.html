@@ -44,7 +44,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
+            width: 90%; /* Más ancho para móviles */
+            max-width: 300px;
             background-color: rgba(44, 44, 44, 0.95);
             color: white;
             border-radius: 10px;
@@ -61,8 +62,8 @@
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
-            margin: 10px 0;
-            padding: 5px 10px;
+            margin: 10px 0; /* Espaciado vertical */
+            padding: 10px 15px;
             transition: background-color 0.3s;
         }
         nav a:hover {
@@ -73,15 +74,20 @@
             background-color: #f4a261;
             border: none;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 20px;
             border-radius: 5px;
-			align-items: center;
             cursor: pointer;
-            margin: 10px;
+            margin: 10px 0; /* Espaciado vertical */
             font-size: 1rem;
+            width: 90%; /* Ocupa el 90% del ancho del contenedor */
+            max-width: 300px;
         }
         button:hover {
             background-color: #e76f51;
+        }
+        main {
+            text-align: center;
+            margin-top: 80px;
         }
         footer {
             position: fixed;
@@ -112,7 +118,7 @@
     </nav>
 
     <!-- Contenido Principal -->
-    <main style="text-align: center; margin-top: 80px;">
+    <main>
         <h1>Desayunos y Meriendas</h1>
         <a href="Tostadas.html"><button>Tostadas</button></a>
         <a href="Gofres.html"><button>Gofres</button></a>
