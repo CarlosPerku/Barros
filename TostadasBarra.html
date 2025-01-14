@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tostadas Pan de Barra - Carta de Barros</title>
+    <style>
+        body {
+            font-family: "Noteworthy", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        header img {
+            height: 40px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .menu {
+            margin-right: 20px;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            margin: 0 10px;
+        }
+        .menu a:hover {
+            color: #f4a261;
+        }
+        .menu-section {
+            width: 80%;
+            max-width: 600px;
+            margin: 100px auto 20px;
+            padding: 20px;
+            background-color: #2c2c2c;
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .menu-section h2 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table tr, table td {
+            border: none;
+            padding: 10px;
+            background-color: transparent;
+        }
+        table td {
+            text-align: left;
+        }
+        table td:nth-child(2) {
+            text-align: right;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #e76f51;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(44, 44, 44, 0.9);
+            color: white;
+            font-size: 8pt;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
+        <div class="menu">
+            <a href="Index.html">Menú Principal</a>
+            <a href="Desayunos.html">Desayunos y Meriendas</a>
+        </div>
+    </header>
+
+    <!-- Sección de Tostadas Pan de Barra -->
+    <div class="menu-section">
+        <h2>Tostadas Pan de Barra</h2>
+        <table>
+            <tr>
+                <td>Café solo</td>
+                <td>1,20 €</td>
+            </tr>
+            <tr>
+                <td>Capuchino</td>
+                <td>2,50 €</td>
+            </tr>
+            <tr>
+                <td>Latte</td>
+                <td>2,80 €</td>
+            </tr>
+            <tr>
+                <td>Americano</td>
+                <td>2,20 €</td>
+            </tr>
+            <tr>
+                <td>Caramel Macchiato</td>
+                <td>3,50 €</td>
+            </tr>
+        </table>
+        <button onclick="location.href='desayunos.html';">Volver a Desayunos y Meriendas</button>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        © <span id="year"></span> Barros A Guarda
+    </footer>
+
+    <script>
+        // Actualizar el año automáticamente
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
