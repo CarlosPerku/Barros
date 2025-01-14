@@ -104,7 +104,7 @@
             text-align: left;
             cursor: pointer;
         }
-        table td:nth-child(2), table td:nth-child(3) {
+        table td:nth-child(2) {
             text-align: right;
         }
         .modal {
@@ -227,14 +227,13 @@
 
             const table = document.getElementById('menu-table');
             rows.forEach(row => {
-                const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const [name, price, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${priceFull ? `Entera: ${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
-                        <td>${priceHalf ? `Media: ${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
                     table.appendChild(tr);
                 }
