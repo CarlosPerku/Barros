@@ -1,4 +1,8 @@
 Nombre,Precio Entera,Precio Media,Detalles
-"Tostada con mantequilla y mermelada", 2.00, 1.50, "Ingredientes: Mantequilla, Mermelada. Alérgenos: "
-"Tostada con AOVE y tomate", 2.20, 1.70, "Ingredientes: Aceite de Oliva Virgen Extra, Tomate natural. Alérgenos: "
-"Tostada AOVE, tomate y jamón", 3.00, 2.50, "Ingredientes: Aceite de Oliva Virgen Extra, Tomate natural, Jamón serrano. Alérgenos: "
+"81. Simple", 4.50, 4.00, "Ingredientes: . Alérgenos "
+"82. Con Queso", 5.00, 4.50, "Ingredientes: . Alérgenos "
+"83. Completa", 5.50, 5.00, "Ingredientes: lechuga, tomate, cebolla y queso. Alérgenos "
+"84. Completa con huevo", 6.00, 5.50, "Ingredientes: . Alérgenos "
+"85. Doble con queso", 7.00, 6.50, "Ingredientes: . Alérgenos "
+"86. Doble completa", 8.00, 7.50, "Ingredientes: . Alérgenos "
+"87. Completa con patatas", 7.00, 6.50, "Ingredientes: . Alérgenos "
