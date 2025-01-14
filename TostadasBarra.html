@@ -76,7 +76,7 @@
         table td {
             text-align: left;
         }
-        table td:nth-child(2) {
+        table td:nth-child(2), table td:nth-child(3) {
             text-align: right;
         }
         .modal {
@@ -179,12 +179,15 @@
 
             const table = document.getElementById('menu-table');
             rows.forEach(row => {
-                const [name, price, details] = row.split(',');
+                const [name, priceFull, priceHalf, details] = row.split(',');
 
-                if (name && price && details) {
+                if (name && details) {
                     const tr = document.createElement('tr');
-                    tr.innerHTML = `<td onclick="showDetails('${name}', '${details.trim()}')">${name}</td>
-                                    <td>${parseFloat(price).toFixed(2)} €</td>`;
+                    tr.innerHTML = `
+                        <td onclick="showDetails('${name}', '${details.trim()}')">${name}</td>
+                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2)} €` : ''}</td>
+                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2)} €` : ''}</td>
+                    `;
                     table.appendChild(tr);
                 }
             });
