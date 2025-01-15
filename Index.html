@@ -69,7 +69,74 @@
             text-align: center;
             padding: 10px 0;
         }
+        #google_translate_element {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
+        }
+        .goog-te-gadget {
+            font-size: 0 !important;
+            color: transparent !important;
+        }
+        .goog-te-combo {
+            background-color: transparent !important;
+            border: none !important;
+            color: white !important;
+            font-size: 0 !important;
+            cursor: pointer;
+            appearance: none;
+        }
+        .goog-te-combo:before {
+            content: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Globe_icon.svg/1024px-Globe_icon.svg.png');
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+        }
+        .goog-te-combo:hover {
+            opacity: 0.8;
+        }
     </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'es,en,fr,de,pt',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        (function() {
+            var script = document.createElement('script');
+            script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            document.head.appendChild(script);
+        })();
+
+        // Guardar y aplicar idioma preferido
+        function setLanguagePreference() {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.addEventListener('change', () => {
+                    localStorage.setItem('preferredLanguage', select.value);
+                });
+            }
+        }
+
+        function applyLanguagePreference() {
+            const preferredLanguage = localStorage.getItem('preferredLanguage');
+            if (preferredLanguage) {
+                const select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = preferredLanguage;
+                    select.dispatchEvent(new Event('change'));
+                }
+            }
+        }
+
+        setTimeout(() => {
+            setLanguagePreference();
+            applyLanguagePreference();
+        }, 3000);
+    </script>
 </head>
 <body>
     <!-- Cabecera -->
@@ -93,6 +160,7 @@
     <!-- Pie de Página -->
     <footer>
         © <span id="year"></span> Barros A Guarda
+        <div id="google_translate_element"></div>
     </footer>
 
     <script>
