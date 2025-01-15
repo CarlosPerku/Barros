@@ -87,7 +87,7 @@
         }
         table th {
             text-align: center;
-            font-weight: bold; /* Etiquetas en negrita */
+            font-weight: bold;
             background-color: transparent;
             padding: 10px 0;
         }
@@ -168,6 +168,8 @@
         <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
         <a href="Picabarros.html" class="menu-button">PicaBarros</a>
         <a href="Postres.html" class="menu-button">Momentos Dulces</a>
+        <!-- Google Translate Widget -->
+        <div id="google_translate_element"></div>
     </nav>
 
     <div class="menu-section">
@@ -184,7 +186,6 @@
         </table>
     </div>
 
-    <!-- Botón para volver -->
     <button class="back-button" onclick="location.href='Hamburguesa.html';">Volver</button>
 
     <div class="modal" id="modal">
@@ -208,43 +209,62 @@
             menu.classList.toggle('open');
         }
 
-        function closeMenu() {
-            menu.classList.remove('open');
-        }
-
         function closeModal() {
             modal.style.display = 'none';
-        }
-
-        function showDetails(name, details) {
-            modalTitle.textContent = name;
-            modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
-            modal.style.display = 'block';
         }
 
         async function loadMenu() {
             const response = await fetch('Hmixta.csv');
             const data = await response.text();
-            const rows = data.split('\n').slice(1);
-
             const tableBody = document.querySelector('#menu-table tbody');
-            rows.forEach(row => {
+            data.split('\n').slice(1).forEach(row => {
                 const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
-                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td onclick="showDetails('${name.trim()}', '${details.trim()}')">${name.trim()}</td>
+                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2)} €` : ''}</td>
+                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2)} €` : ''}</td>
                     `;
                     tableBody.appendChild(tr);
                 }
             });
         }
 
+        function showDetails(name, details) {
+            modalTitle.textContent = name;
+            modalDetails.textContent = details;
+            modal.style.display = 'block';
+        }
+
         document.getElementById('year').textContent = new Date().getFullYear();
         loadMenu();
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'es,pt,fr,de,en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+
+        // Save and apply language selection
+        function saveLanguagePreference(lang) {
+            localStorage.setItem('selectedLanguage', lang);
+        }
+
+        function applySavedLanguage() {
+            const lang = localStorage.getItem('selectedLanguage');
+            if (lang) {
+                const googleTranslateIframe = document.querySelector('iframe.goog-te-banner-frame');
+                if (googleTranslateIframe) {
+                    googleTranslateIframe.contentWindow.location.reload();
+                }
+            }
+        }
+
+        applySavedLanguage();
     </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
