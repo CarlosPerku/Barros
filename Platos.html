@@ -2,7 +2,7 @@
 <html lang="es"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hamburguesa Mixta - Carta de Barros</title>
+    <title>Platos Combinados - Carta de Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -176,13 +176,13 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Hamburguesa Mixta</h2>
+        <h2>Platos Combinados</h2>
         <table id="menu-table">
             <thead>
                 <tr>
                     <th></th>
-                    <th>200gr.</th>
-                    <th>100gr.</th>
+                    <th>Adultos</th>
+                    <th>Infantil</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -190,7 +190,7 @@
     </div>
 
     <!-- Botón para volver -->
-    <button class="back-button" onclick="location.href='Hamburguesa.html';">Volver</button>
+    <button class="back-button" onclick="location.href='Index.html';">Volver</button>
 
     <div class="modal" id="modal">
         <h3 id="modal-title"></h3>
@@ -228,7 +228,7 @@
         }
 
         async function loadMenu() {
-            const response = await fetch('Hmixta.csv');
+            const response = await fetch('Platos.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
