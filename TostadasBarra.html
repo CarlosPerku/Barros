@@ -67,6 +67,9 @@
             background-color: #f4a261;
             border-radius: 5px;
         }
+		#google_translate_element {
+            margin-top: 15px;
+        } /* Widget de Google Translate */
         nav .menu-button:hover {
             background-color: #e76f51;
         }
@@ -168,6 +171,9 @@
         <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
         <a href="Picabarros.html" class="menu-button">PicaBarros</a>
         <a href="Postres.html" class="menu-button">Momentos Dulces</a>
+		<!-- Inicio del Widget de Google Translate -->
+        <div id="google_translate_element"></div>
+        <!-- Fin del Widget de Google Translate -->
     </nav>
 
     <div class="menu-section">
@@ -245,6 +251,53 @@
 
         document.getElementById('year').textContent = new Date().getFullYear();
         loadMenu();
+    function googleTranslateElementInit() {
+            // Inicio de la inicialización del widget de Google Translate
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'es,pt,fr,de,en',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+            // Fin de la inicialización del widget de Google Translate
+        }
+
+        function saveLanguagePreference(lang) {
+            // Inicio: Guardar preferencia del idioma seleccionado en localStorage
+            localStorage.setItem('selectedLanguage', lang);
+            // Fin: Guardar preferencia del idioma seleccionado
+        }
+
+        function applySavedLanguage() {
+            // Inicio: Aplicar el idioma guardado en todas las páginas
+            const lang = localStorage.getItem('selectedLanguage');
+            if (lang) {
+                const googleTranslateIframe = document.querySelector('iframe.goog-te-banner-frame');
+                if (googleTranslateIframe) {
+                    googleTranslateIframe.contentWindow.location.reload();
+                }
+            }
+            // Fin: Aplicar idioma guardado
+        }
+
+        window.addEventListener('load', () => {
+            // Inicio: Ajuste dinámico del header según la barra de Google Translate
+            const googleTranslateObserver = new MutationObserver(() => {
+                const translateBanner = document.querySelector('.goog-te-banner-frame');
+                if (translateBanner) {
+                    header.style.top = `${translateBanner.offsetHeight}px`;
+                } else {
+                    header.style.top = '0px';
+                }
+            });
+
+            googleTranslateObserver.observe(document.body, { childList: true, subtree: true });
+            // Fin: Ajuste dinámico del header
+        });
+
+        applySavedLanguage();
     </script>
+    <!-- Script de Google Translate -->
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Fin del Script de Google Translate -->
 </body>
 </html>
