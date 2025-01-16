@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos</title>
+    <style>
+        body {
+            font-family: "Noteworthy", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        header img {
+            height: 50px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .menu-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .menu-icon:hover {
+            color: #f4a261;
+        }
+        nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background-color: rgba(44, 44, 44, 0.95);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            padding: 20px;
+            text-align: center;
+        }
+        nav.open {
+            display: block;
+        }
+        nav .menu-button {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
+        nav .menu-button:hover {
+            background-color: #e76f51;
+        }
+        .order-list {
+            max-width: 600px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            background-color: #2c2c2c;
+            color: white;
+            border-radius: 10px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .order-item input {
+            width: 50px;
+            margin-left: 10px;
+        }
+        .total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            color: white;
+        }
+        button {
+            background-color: #f4a261;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px auto;
+            display: block;
+            text-align: center;
+        }
+        button:hover {
+            background-color: #e76f51;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(44, 44, 44, 0.9);
+            color: white;
+            font-size: 8pt;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <!-- Menú flotante -->
+    <nav id="menu">
+        <a href="Index.html" class="menu-button">Menú Principal</a>
+        <a href="Desayunos.html" class="menu-button">Desayunos y Meriendas</a>
+        <a href="EntrePanes.html" class="menu-button">Entre Panes</a>
+        <a href="Ensaladas.html" class="menu-button">Piensa en Verde</a>
+        <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
+        <a href="Picabarros.html" class="menu-button">PicaBarros</a>
+        <a href="Postres.html" class="menu-button">Momentos Dulces</a>
+    </nav>
+
+    <!-- Lista de pedidos -->
+    <main>
+        <div class="order-list" id="order-list">
+            <!-- Los ítems del pedido se cargarán aquí -->
+        </div>
+        <div class="total" id="total-amount">Total: 0,00 €</div>
+        <button onclick="confirmOrder()">Confirmar Pedido</button>
+        <button onclick="clearOrder()">Limpiar Pedido</button>
+        <button onclick="location.href='Index.html';">Volver</button>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer>
+        © <span id="year"></span> Barros A Guarda
+    </footer>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+        
+        // Abrir/cerrar menú flotante
+        function toggleMenu() {
+            menu.classList.toggle('open');
+        }
+
+        // Cargar datos desde localStorage
+        function loadOrder() {
+            const savedCart = localStorage.getItem('shoppingCart');
+            if (savedCart) {
+                const shoppingCart = JSON.parse(savedCart);
+                renderOrderList(shoppingCart);
+            }
+        }
+
+        // Mostrar la lista de pedidos
+        function renderOrderList(cart) {
+            const orderList = document.getElementById('order-list');
+            orderList.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                const div = document.createElement('div');
+                div.className = 'order-item';
+                div.innerHTML = `
+                    <span>${item.name}</span>
+                    <div>
+                        <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                        <span>${itemTotal.toFixed(2)} €</span>
+                        <button onclick="removeItem(${index})">❌</button>
+                    </div>
+                `;
+                orderList.appendChild(div);
+            });
+
+            document.getElementById('total-amount').textContent = `Total: ${total.toFixed(2)} €`;
+        }
+
+        // Guardar datos en localStorage
+        function saveOrder(cart) {
+            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        }
+
+        // Confirmar pedido
+        function confirmOrder() {
+            alert('Pedido confirmado');
+            clearOrder();
+        }
+
+        // Limpiar pedido
+        function clearOrder() {
+            localStorage.removeItem('shoppingCart');
+            document.getElementById('order-list').innerHTML = '';
+            document.getElementById('total-amount').textContent = 'Total: 0,00 €';
+        }
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+        loadOrder();
+    </script>
+</body>
+</html>
