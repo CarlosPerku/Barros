@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postres - Carta de Barros</title>
+    <title>Gofres/Crepes Dulces - Carta de Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -188,12 +188,12 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Postres</h2>
+        <h2>Gofres/Crepes Dulces</h2>
         <table id="menu-table"></table>
     </div>
 
     <!-- Botón para volver -->
-    <button class="back-button" onclick="location.href='Index.html';">Volver</button>
+    <button class="back-button" onclick="location.href='Gofres.html';">Volver</button>
 
      <!-- Inicio del modal (ventana flotante) -->
     <div class="modal" id="modal">
@@ -243,7 +243,7 @@
         // Cargar datos del CSV
 
         async function loadMenu() {
-            const response = await fetch('Postres.csv');
+            const response = await fetch('gdulces.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
