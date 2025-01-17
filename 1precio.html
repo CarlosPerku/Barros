@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tostadas Pan de Pueblo - Carta de Barros</title>
+    <style>
+        body {
+            font-family: "Noteworthy", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+			padding-bottom: 60px; /* Ajusta este valor al tamaño del pie de página */
+        }
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        header img {
+            height: 50px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .menu-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .menu-icon:hover {
+            color: #f4a261;
+        }
+        nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background-color: rgba(44, 44, 44, 0.95);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            padding: 20px;
+            text-align: center;
+        }
+        nav.open {
+            display: block;
+        }
+		        nav .menu-button {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0; /* Espaciado adecuado entre botones */
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
+		#google_translate_element {
+            margin-top: 15px;
+        } /* Widget de Google Translate */
+        nav .menu-button:hover {
+            background-color: #e76f51;
+        }
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
+        .menu-section {
+            width: 90%;
+            max-width: 600px;
+            margin: 80px auto 20px;
+            padding: 20px;
+            background-color: #2c2c2c;
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table tr, table td {
+            border: none;
+            padding: 10px;
+            text-align: left;
+            cursor: pointer;
+        }
+        table td:nth-child(2) {
+            text-align: right;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background-color: #f9f6f1;
+            color: #333;
+            border-radius: 10px;
+            z-index: 2000;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .modal h3 {
+            margin-top: 0;
+        }
+        .modal button {
+            margin-top: 20px;
+            background-color: #f4a261;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            background-color: #f4a261;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #e76f51;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(44, 44, 44, 0.9);
+            color: white;
+            font-size: 8pt;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
+		<!-- Inicio del botón del carrito -->
+        <i class="cart-icon" onclick="location.href='lista.html';">🛒</i>
+        <!-- Fin del botón del carrito -->
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav id="menu">
+        <a href="Index.html" class="menu-button">Menú Principal</a>
+        <a href="Desayunos.html" class="menu-button">Desayunos y Meriendas</a>
+        <a href="EntrePanes.html" class="menu-button">Entre Panes</a>
+        <a href="Ensaladas.html" class="menu-button">Piensa en Verde</a>
+        <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
+        <a href="Picabarros.html" class="menu-button">PicaBarros</a>
+        <a href="Postres.html" class="menu-button">Momentos Dulces</a>
+		<!-- Inicio del Widget de Google Translate -->
+        <div id="google_translate_element"></div>
+        <!-- Fin del Widget de Google Translate -->
+    </nav>
+
+    <div class="menu-section">
+        <h2>Tostadas Pan de Pueblo</h2>
+        <table id="menu-table"></table>
+    </div>
+
+    <!-- Botón para volver -->
+    <button class="back-button" onclick="location.href='Tostadas.html';">Volver</button>
+
+     <!-- Inicio del modal (ventana flotante) -->
+    <div class="modal" id="modal">
+        <h3 id="modal-title"></h3>
+        <p id="modal-details"></p>
+        <input type="number" id="quantity" value="1" min="1" />
+        <button onclick="closeModal()">Cerrar</button>
+        <!-- Botón añadir (asegúrate de que su ID coincida con el usado en JS) -->
+        <button id="add-to-list">Añadir</button>
+    </div>
+    <!-- Fin del modal -->
+
+    <footer>
+        © <span id="year"></span> Barros A Guarda
+    </footer>
+
+    <script>
+        // Variables iniciales
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDetails = document.getElementById('modal-details');
+        const addToListButton = document.getElementById('add-to-list');
+        const tableBody = document.querySelector('#menu-table tbody');
+
+        let selectedItem = null; // Almacena el ítem seleccionado
+
+        // Mostrar/ocultar el menú
+        function toggleMenu() {
+            menu.classList.toggle('open');
+        }
+
+        // Cerrar el modal
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Mostrar detalles en el modal
+        function showDetails(name, details, price) {
+            selectedItem = { name, details, price};
+            modalTitle.textContent = name;
+            modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
+            modal.style.display = 'block';
+        }
+
+        // Cargar datos del CSV
+
+        async function loadMenu() {
+            const response = await fetch('TostadasPueblo.csv');
+            const data = await response.text();
+            const rows = data.split('\n').slice(1);
+
+            const table = document.getElementById('menu-table');
+            rows.forEach(row => {
+                const [name, price, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+
+                if (name && details) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
+                        <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
+                    `;
+                    table.appendChild(tr);
+                }
+            });
+        }
+		// Botón "Añadir" para enviar ítems a lista.html
+        addToListButton.addEventListener('click', () => {
+            if (selectedItem) {
+                const price = parseFloat(selectedItem.price); // Usar el único precio disponible
+                const quantity = parseInt(document.querySelector('#quantity').value, 10);
+
+                const finalName =
+                    selectedItem.name
+
+                const orderItem = {
+                    name: finalName,
+                    price: price,
+                    quantity: quantity,
+                };
+
+                const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+                orderList.push(orderItem);
+                localStorage.setItem('orderList', JSON.stringify(orderList));
+                closeModal();
+                alert('Añadido a la lista');
+            }
+        });
+
+        // Cargar el menú al iniciar
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+        loadMenu();
+    function googleTranslateElementInit() {
+            // Inicio de la inicialización del widget de Google Translate
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+            // Fin de la inicialización del widget de Google Translate
+        }
+
+        function saveLanguagePreference(lang) {
+            // Inicio: Guardar preferencia del idioma seleccionado en localStorage
+            localStorage.setItem('selectedLanguage', lang);
+            // Fin: Guardar preferencia del idioma seleccionado
+        }
+
+        function applySavedLanguage() {
+            // Inicio: Aplicar el idioma guardado en todas las páginas
+            const lang = localStorage.getItem('selectedLanguage');
+            if (lang) {
+                const googleTranslateIframe = document.querySelector('iframe.goog-te-banner-frame');
+                if (googleTranslateIframe) {
+                    googleTranslateIframe.contentWindow.location.reload();
+                }
+            }
+            // Fin: Aplicar idioma guardado
+        }
+
+        window.addEventListener('load', () => {
+            // Inicio: Ajuste dinámico del header según la barra de Google Translate
+            const googleTranslateObserver = new MutationObserver(() => {
+                const translateBanner = document.querySelector('.goog-te-banner-frame');
+                if (translateBanner) {
+                    header.style.top = `${translateBanner.offsetHeight}px`;
+                } else {
+                    header.style.top = '0px';
+                }
+            });
+
+            googleTranslateObserver.observe(document.body, { childList: true, subtree: true });
+            // Fin: Ajuste dinámico del header
+        });
+
+        applySavedLanguage();
+    </script>
+    <!-- Script de Google Translate -->
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Fin del Script de Google Translate -->
+</body>
+</html>
