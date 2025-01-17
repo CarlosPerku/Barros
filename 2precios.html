@@ -258,7 +258,7 @@
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
+                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}', '${priceFull}', '${priceHalf}')">${name.trim().replaceAll('"', '')}</td>
                         <td>${priceFull ? `${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
                         <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
