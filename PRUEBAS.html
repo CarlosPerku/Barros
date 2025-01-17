@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gofres/Crepes Dulces - Carta de Barros</title>
+    <title>Bocadillos Calientes - Carta de Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -57,12 +57,12 @@
         nav.open {
             display: block;
         }
-		        nav .menu-button {
+        nav .menu-button {
             display: block;
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
-            margin: 10px 0; /* Espaciado adecuado entre botones */
+            margin: 10px 0;
             padding: 10px 15px;
             transition: background-color 0.3s;
             background-color: #f4a261;
@@ -73,19 +73,6 @@
         } /* Widget de Google Translate */
         nav .menu-button:hover {
             background-color: #e76f51;
-        }
-        nav a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            font-size: 1.2rem;
-            margin: 10px 0;
-            padding: 5px 10px;
-            transition: background-color 0.3s;
-        }
-        nav a:hover {
-            background-color: #f4a261;
-            border-radius: 5px;
         }
         .menu-section {
             width: 90%;
@@ -102,14 +89,20 @@
             border-collapse: collapse;
             margin-top: 10px;
         }
+        table th {
+            text-align: center;
+            font-weight: bold;
+            background-color: transparent;
+            padding: 10px 0;
+        }
         table tr, table td {
             border: none;
             padding: 10px;
             text-align: left;
             cursor: pointer;
         }
-        table td:nth-child(2) {
-            text-align: right;
+        table td:nth-child(2), table td:nth-child(3) {
+            text-align: center;
         }
         .modal {
             display: none;
@@ -188,17 +181,30 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Gofres/Crepes Dulces</h2>
-        <table id="menu-table"></table>
+        <h2>Bocadillos Calientes</h2>
+        <table id="menu-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Entero</th>
+                    <th>Medio</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 
     <!-- Botón para volver -->
-    <button class="back-button" onclick="location.href='Gofres.html';">Volver</button>
+    <button class="back-button" onclick="location.href='Bocadillo.html';">Volver</button>
 
-     <!-- Inicio del modal (ventana flotante) -->
+    <!-- Inicio del modal (ventana flotante) -->
     <div class="modal" id="modal">
         <h3 id="modal-title"></h3>
         <p id="modal-details"></p>
+        <select id="price-option">
+            <option value="priceFull">Entero</option>
+            <option value="priceHalf">Medio</option>
+        </select>
         <input type="number" id="quantity" value="1" min="1" />
         <button onclick="closeModal()">Cerrar</button>
         <!-- Botón añadir (asegúrate de que su ID coincida con el usado en JS) -->
@@ -233,42 +239,44 @@
         }
 
         // Mostrar detalles en el modal
-        function showDetails(name, details, price) {
-            selectedItem = { name, details, price};
+        function showDetails(name, details, priceFull, priceHalf) {
+            selectedItem = { name, details, priceFull, priceHalf };
             modalTitle.textContent = name;
             modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
             modal.style.display = 'block';
         }
 
-        // Cargar datos del CSV
-
         async function loadMenu() {
-            const response = await fetch('gdulces.csv');
+            const response = await fetch('Bcaliente.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
-            const table = document.getElementById('menu-table');
+            const tableBody = document.querySelector('#menu-table tbody');
             rows.forEach(row => {
-                const [name, price, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}', '${price}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}', '${priceFull}', '${priceHalf}')">${name.trim().replaceAll('"', '')}</td>
+                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
-                    table.appendChild(tr);
+                    tableBody.appendChild(tr);
                 }
             });
         }
-// Botón "Añadir" para enviar ítems a lista.html
+		 // Botón "Añadir" para enviar ítems a lista.html
         addToListButton.addEventListener('click', () => {
             if (selectedItem) {
-                const price = parseFloat(selectedItem.price); // Usar el único precio disponible
+                const priceType = document.querySelector('#price-option').value;
+                const price = parseFloat(selectedItem[priceType]);
+                const priceLabel = document.querySelector('#price-option').options[
+                    document.querySelector('#price-option').selectedIndex
+                ].text;
                 const quantity = parseInt(document.querySelector('#quantity').value, 10);
 
-                const finalName =
-                    selectedItem.name
+                const finalName = `${selectedItem.name} (${priceLabel})`;
 
                 const orderItem = {
                     name: finalName,
@@ -285,13 +293,14 @@
         });
 
         // Cargar el menú al iniciar
+
         document.getElementById('year').textContent = new Date().getFullYear();
         loadMenu();
     function googleTranslateElementInit() {
             // Inicio de la inicialización del widget de Google Translate
             new google.translate.TranslateElement({
                 pageLanguage: 'es',
-               includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
+                includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
             // Fin de la inicialización del widget de Google Translate
