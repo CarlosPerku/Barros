@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Platos Combinados - Carta de Barros</title>
+    <title>Tostadas Pan de Barra - Carta de Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #ffffff;
-            padding-bottom: 60px; /* Ajusta este valor al tamaño del pie de página */
+			padding-bottom: 60px; /* Ajusta este valor al tamaño del pie de página */
         }
         header {
             position: sticky;
@@ -68,6 +68,9 @@
             background-color: #f4a261;
             border-radius: 5px;
         }
+		#google_translate_element {
+            margin-top: 15px;
+        } /* Widget de Google Translate */
         nav .menu-button:hover {
             background-color: #e76f51;
         }
@@ -129,15 +132,6 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .modal select,
-        .modal input {
-            display: block;
-            width: 100%;
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
         .back-button {
             display: block;
             margin: 20px auto;
@@ -187,36 +181,43 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Platos Combinados</h2>
+        <h2>Tostadas Pan de Barra</h2>
         <table id="menu-table">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Adultos</th>
-                    <th>Infantil</th>
+                    <th>Entera</th>
+                    <th>Media</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
 
+    <!-- Botón para volver -->
+    <button class="back-button" onclick="location.href='Tostadas.html';">Volver</button>
+
+    <!-- Inicio del modal (ventana flotante) -->
     <div class="modal" id="modal">
         <h3 id="modal-title"></h3>
         <p id="modal-details"></p>
         <select id="price-option">
-            <option value="adultPrice">Adulto</option>
-            <option value="childPrice">Infantil</option>
+            <option value="priceFull">Entera</option>
+            <option value="priceHalf">Media</option>
         </select>
         <input type="number" id="quantity" value="1" min="1" />
         <button onclick="closeModal()">Cerrar</button>
+        <!-- Botón añadir (asegúrate de que su ID coincida con el usado en JS) -->
         <button id="add-to-list">Añadir</button>
     </div>
+    <!-- Fin del modal -->
 
     <footer>
         © <span id="year"></span> Barros A Guarda
     </footer>
 
     <script>
+        // Variables iniciales
         const menuIcon = document.getElementById('menu-icon');
         const menu = document.getElementById('menu');
         const modal = document.getElementById('modal');
@@ -225,35 +226,39 @@
         const addToListButton = document.getElementById('add-to-list');
         const tableBody = document.querySelector('#menu-table tbody');
 
-        let selectedItem = null;
+        let selectedItem = null; // Almacena el ítem seleccionado
 
+        // Mostrar/ocultar el menú
         function toggleMenu() {
             menu.classList.toggle('open');
         }
 
+        // Cerrar el modal
         function closeModal() {
             modal.style.display = 'none';
         }
 
-        function showDetails(name, details, adultPrice, childPrice) {
-            selectedItem = { name, details, adultPrice, childPrice };
+        // Mostrar detalles en el modal
+        function showDetails(name, details, priceFull, priceHalf) {
+            selectedItem = { name, details, priceFull, priceHalf };
             modalTitle.textContent = name;
             modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
             modal.style.display = 'block';
         }
 
         async function loadMenu() {
-            const response = await fetch('Platos.csv');
+            const response = await fetch('TostadasBarra.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
+            const tableBody = document.querySelector('#menu-table tbody');
             rows.forEach(row => {
                 const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}', '${priceFull}', '${priceHalf}')">${name.trim().replaceAll('"', '')}</td>
+                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
                         <td>${priceFull ? `${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
                         <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
@@ -261,7 +266,7 @@
                 }
             });
         }
-// --- INICIO: Funcionalidad para añadir ítems a lista.html ---
+		 // Botón "Añadir" para enviar ítems a lista.html
         addToListButton.addEventListener('click', () => {
             if (selectedItem) {
                 const priceType = document.querySelector('#price-option').value;
@@ -271,10 +276,7 @@
                 ].text;
                 const quantity = parseInt(document.querySelector('#quantity').value, 10);
 
-                const finalName =
-                    selectedItem.adultPrice && selectedItem.childPrice
-                        ? `${selectedItem.name} (${priceLabel})`
-                        : selectedItem.name;
+                const finalName = `${selectedItem.name} (${priceLabel})`;
 
                 const orderItem = {
                     name: finalName,
@@ -289,10 +291,12 @@
                 alert('Añadido a la lista');
             }
         });
-// --- FIN: Funcionalidad para añadir ítems a lista.html ---
+
+        // Cargar el menú al iniciar
+
         document.getElementById('year').textContent = new Date().getFullYear();
         loadMenu();
-   function googleTranslateElementInit() {
+    function googleTranslateElementInit() {
             // Inicio de la inicialización del widget de Google Translate
             new google.translate.TranslateElement({
                 pageLanguage: 'es',
