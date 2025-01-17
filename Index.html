@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carta de Barros</title>
-    <style>
+        <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
             margin: 0;
@@ -22,9 +22,18 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            position: relative; /* Permite posicionar elementos dentro del header */
         }
         header img {
             height: 70px;
+            cursor: pointer;
+        }
+        .cart-icon {
+            position: absolute; /* Fija el carrito en el header */
+            top: 50%; /* Centra verticalmente el icono en el header */
+            right: 15px; /* Separa el carrito del borde derecho */
+            transform: translateY(-50%); /* Ajusta el icono al centro vertical */
+            font-size: 1.5rem; /* Ajusta el tamaño del icono */
             cursor: pointer;
         }
         main {
@@ -117,6 +126,9 @@
     <!-- Cabecera -->
     <header>
         <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='index.html';">
+		<!-- Inicio del botón del carrito -->
+        <i class="cart-icon" onclick="location.href='Lista.html';">🛒</i>
+        <!-- Fin del botón del carrito -->
     </header>
 
     <!-- Contenido Principal -->
