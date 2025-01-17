@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandwich Simple - Carta de Barros</title>
+    <title>Postres - Carta de Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -188,12 +188,12 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Sandwich Simple</h2>
+        <h2>Postres</h2>
         <table id="menu-table"></table>
     </div>
 
     <!-- Botón para volver -->
-    <button class="back-button" onclick="location.href='Sandwich.html';">Volver</button>
+    <button class="back-button" onclick="location.href='Index.html';">Volver</button>
 
      <!-- Inicio del modal (ventana flotante) -->
     <div class="modal" id="modal">
@@ -243,7 +243,7 @@
         // Cargar datos del CSV
 
         async function loadMenu() {
-            const response = await fetch('Ssimple.csv');
+            const response = await fetch('Postres.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
@@ -254,7 +254,7 @@
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
+                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}', '${price}')">${name.trim().replaceAll('"', '')}</td>
                         <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
                     table.appendChild(tr);
