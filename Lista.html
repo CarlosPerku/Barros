@@ -83,6 +83,10 @@
             justify-content: space-between;
             margin-bottom: 10px;
         }
+        .order-item span.type {
+            font-style: italic;
+            margin-right: 10px;
+        }
         .order-item input {
             width: 50px;
             margin-left: 10px;
@@ -158,60 +162,70 @@
         const menuIcon = document.getElementById('menu-icon');
         const menu = document.getElementById('menu');
         
-        // Abrir/cerrar menú flotante
         function toggleMenu() {
             menu.classList.toggle('open');
         }
 
-        // Cargar datos desde localStorage
         function loadOrder() {
-            const savedCart = localStorage.getItem('shoppingCart');
+            const savedCart = localStorage.getItem('orderList');
             if (savedCart) {
                 const shoppingCart = JSON.parse(savedCart);
                 renderOrderList(shoppingCart);
             }
         }
 
-        // Mostrar la lista de pedidos
-        function renderOrderList(cart) {
-            const orderList = document.getElementById('order-list');
-            orderList.innerHTML = '';
-            let total = 0;
+     function renderOrderList(cart) {
+    const orderList = document.getElementById('order-list');
+    orderList.innerHTML = '';
+    let total = 0;
 
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
 
-                const div = document.createElement('div');
-                div.className = 'order-item';
-                div.innerHTML = `
-                    <span>${item.name}</span>
-                    <div>
-                        <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
-                        <span>${itemTotal.toFixed(2)} €</span>
-                        <button onclick="removeItem(${index})">❌</button>
-                    </div>
-                `;
-                orderList.appendChild(div);
-            });
+        const div = document.createElement('div');
+        div.className = 'order-item';
+        div.innerHTML = `
+            <div>
+                <span>${item.name}</span>
+            </div>
+            <div>
+                <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                <span>${itemTotal.toFixed(2)} €</span>
+                <button onclick="removeItem(${index})">❌</button>
+            </div>
+        `;
+        orderList.appendChild(div);
+    });
 
-            document.getElementById('total-amount').textContent = `Total: ${total.toFixed(2)} €`;
-        }
+    document.getElementById('total-amount').textContent = `Total: ${total.toFixed(2)} €`;
+}
 
-        // Guardar datos en localStorage
         function saveOrder(cart) {
-            localStorage.setItem('shoppingCart', JSON.stringify(cart));
+            localStorage.setItem('orderList', JSON.stringify(cart));
         }
 
-        // Confirmar pedido
+        function updateQuantity(index, quantity) {
+            const cart = JSON.parse(localStorage.getItem('orderList'));
+            cart[index].quantity = parseInt(quantity, 10);
+            saveOrder(cart);
+            renderOrderList(cart);
+        }
+
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('orderList'));
+            cart.splice(index, 1);
+            saveOrder(cart);
+            renderOrderList(cart);
+        }
+
         function confirmOrder() {
             alert('Pedido confirmado');
             clearOrder();
         }
 
-        // Limpiar pedido
         function clearOrder() {
-            localStorage.removeItem('shoppingCart');
+            localStorage.removeItem('orderList');
             document.getElementById('order-list').innerHTML = '';
             document.getElementById('total-amount').textContent = 'Total: 0,00 €';
         }
