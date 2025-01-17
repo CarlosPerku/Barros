@@ -168,6 +168,9 @@
 <body>
     <header>
         <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
+		<!-- Inicio del botón del carrito -->
+        <i class="cart-icon" onclick="location.href='lista.html';">🛒</i>
+        <!-- Fin del botón del carrito -->
         <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
     </header>
 
@@ -192,40 +195,52 @@
     <!-- Botón para volver -->
     <button class="back-button" onclick="location.href='Tostadas.html';">Volver</button>
 
+     <!-- Inicio del modal (ventana flotante) -->
     <div class="modal" id="modal">
         <h3 id="modal-title"></h3>
         <p id="modal-details"></p>
+        <input type="number" id="quantity" value="1" min="1" />
         <button onclick="closeModal()">Cerrar</button>
+        <!-- Botón añadir (asegúrate de que su ID coincida con el usado en JS) -->
+        <button id="add-to-list">Añadir</button>
     </div>
+    <!-- Fin del modal -->
 
     <footer>
         © <span id="year"></span> Barros A Guarda
     </footer>
 
     <script>
+        // Variables iniciales
         const menuIcon = document.getElementById('menu-icon');
         const menu = document.getElementById('menu');
         const modal = document.getElementById('modal');
         const modalTitle = document.getElementById('modal-title');
         const modalDetails = document.getElementById('modal-details');
+        const addToListButton = document.getElementById('add-to-list');
+        const tableBody = document.querySelector('#menu-table tbody');
 
+        let selectedItem = null; // Almacena el ítem seleccionado
+
+        // Mostrar/ocultar el menú
         function toggleMenu() {
             menu.classList.toggle('open');
         }
 
-        function closeMenu() {
-            menu.classList.remove('open');
-        }
-
+        // Cerrar el modal
         function closeModal() {
             modal.style.display = 'none';
         }
 
-        function showDetails(name, details) {
+        // Mostrar detalles en el modal
+        function showDetails(name, details, price) {
+            selectedItem = { name, details, price};
             modalTitle.textContent = name;
             modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
             modal.style.display = 'block';
         }
+
+        // Cargar datos del CSV
 
         async function loadMenu() {
             const response = await fetch('TostadasPueblo.csv');
@@ -246,6 +261,30 @@
                 }
             });
         }
+		// Botón "Añadir" para enviar ítems a lista.html
+        addToListButton.addEventListener('click', () => {
+            if (selectedItem) {
+                const price = parseFloat(selectedItem.price); // Usar el único precio disponible
+                const quantity = parseInt(document.querySelector('#quantity').value, 10);
+
+                const finalName =
+                    selectedItem.name
+
+                const orderItem = {
+                    name: finalName,
+                    price: price,
+                    quantity: quantity,
+                };
+
+                const orderList = JSON.parse(localStorage.getItem('orderList')) || [];
+                orderList.push(orderItem);
+                localStorage.setItem('orderList', JSON.stringify(orderList));
+                closeModal();
+                alert('Añadido a la lista');
+            }
+        });
+
+        // Cargar el menú al iniciar
 
         document.getElementById('year').textContent = new Date().getFullYear();
         loadMenu();
