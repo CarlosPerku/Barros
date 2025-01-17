@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Postres - Carta de Barros</title>
+    <title>Postres - Carta Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -164,10 +164,41 @@
             padding: 10px 0;
         }
     </style>
+	<script>
+        //  Deshabilitar clic derecho
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            
+        });
+
+        //  Bloquear DevTools parcialmente
+        document.addEventListener('keydown', function(e) {
+            // Bloquear F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                
+            }
+            // Bloquear Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                
+            }
+            // Bloquear Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                
+            }
+            // Bloquear Ctrl+U
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+               
+            }
+        });
+    </script>
 </head>
 <body>
     <header>
-        <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
+        <img src="LogoBarros.png" alt="Logo Barros" onclick="location.href='Index.html';">
 		<!-- Inicio del botón del carrito -->
         <i class="cart-icon" onclick="location.href='Lista.html';">🛒</i>
         <!-- Fin del botón del carrito -->
