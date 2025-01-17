@@ -254,7 +254,7 @@
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
-                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
+                        <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}', '${price}')">${name.trim().replaceAll('"', '')}</td>
                         <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
                     table.appendChild(tr);
