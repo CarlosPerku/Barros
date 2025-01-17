@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tostadas Pan de Barra - Carta de Barros</title>
+    <title>Sandwich Simple - Carta de Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -57,12 +57,12 @@
         nav.open {
             display: block;
         }
-        nav .menu-button {
+		        nav .menu-button {
             display: block;
             color: white;
             text-decoration: none;
             font-size: 1.2rem;
-            margin: 10px 0;
+            margin: 10px 0; /* Espaciado adecuado entre botones */
             padding: 10px 15px;
             transition: background-color 0.3s;
             background-color: #f4a261;
@@ -73,6 +73,19 @@
         } /* Widget de Google Translate */
         nav .menu-button:hover {
             background-color: #e76f51;
+        }
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #f4a261;
+            border-radius: 5px;
         }
         .menu-section {
             width: 90%;
@@ -89,20 +102,14 @@
             border-collapse: collapse;
             margin-top: 10px;
         }
-        table th {
-            text-align: center;
-            font-weight: bold;
-            background-color: transparent;
-            padding: 10px 0;
-        }
         table tr, table td {
             border: none;
             padding: 10px;
             text-align: left;
             cursor: pointer;
         }
-        table td:nth-child(2), table td:nth-child(3) {
-            text-align: center;
+        table td:nth-child(2) {
+            text-align: right;
         }
         .modal {
             display: none;
@@ -162,7 +169,7 @@
     <header>
         <img src="https://dl.dropboxusercontent.com/scl/fi/rxr2qs05esa9kr0moescz/Logo-Barros.png?rlkey=ixi3ta0djjeslhsl1jpvup244&dl=0" alt="Logo Barros" onclick="location.href='Index.html';">
 		<!-- Inicio del botón del carrito -->
-        <i class="cart-icon" onclick="location.href='lista.html';">🛒</i>
+        <i class="cart-icon" onclick="location.href='Lista.html';">🛒</i>
         <!-- Fin del botón del carrito -->
         <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
     </header>
@@ -181,30 +188,17 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Tostadas Pan de Barra</h2>
-        <table id="menu-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Entera</th>
-                    <th>Media</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        <h2>Sandwich Simple</h2>
+        <table id="menu-table"></table>
     </div>
 
     <!-- Botón para volver -->
-    <button class="back-button" onclick="location.href='Tostadas.html';">Volver</button>
+    <button class="back-button" onclick="location.href='Sandwich.html';">Volver</button>
 
-    <!-- Inicio del modal (ventana flotante) -->
+     <!-- Inicio del modal (ventana flotante) -->
     <div class="modal" id="modal">
         <h3 id="modal-title"></h3>
         <p id="modal-details"></p>
-        <select id="price-option">
-            <option value="priceFull">Entera</option>
-            <option value="priceHalf">Media</option>
-        </select>
         <input type="number" id="quantity" value="1" min="1" />
         <button onclick="closeModal()">Cerrar</button>
         <!-- Botón añadir (asegúrate de que su ID coincida con el usado en JS) -->
@@ -239,44 +233,42 @@
         }
 
         // Mostrar detalles en el modal
-        function showDetails(name, details, priceFull, priceHalf) {
-            selectedItem = { name, details, priceFull, priceHalf };
+        function showDetails(name, details, price) {
+            selectedItem = { name, details, price};
             modalTitle.textContent = name;
             modalDetails.textContent = details.replaceAll('"', '').replaceAll('<br>', '\n');
             modal.style.display = 'block';
         }
 
+        // Cargar datos del CSV
+
         async function loadMenu() {
-            const response = await fetch('TostadasBarra.csv');
+            const response = await fetch('Ssimple.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
-            const tableBody = document.querySelector('#menu-table tbody');
+            const table = document.getElementById('menu-table');
             rows.forEach(row => {
-                const [name, priceFull, priceHalf, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                const [name, price, details] = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
                 if (name && details) {
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td onclick="showDetails('${name.trim().replaceAll('"', '')}', '${details.trim().replaceAll('"', '')}')">${name.trim().replaceAll('"', '')}</td>
-                        <td>${priceFull ? `${parseFloat(priceFull).toFixed(2).replace('.', ',')} €` : ''}</td>
-                        <td>${priceHalf ? `${parseFloat(priceHalf).toFixed(2).replace('.', ',')} €` : ''}</td>
+                        <td>${price ? `${parseFloat(price).toFixed(2).replace('.', ',')} €` : ''}</td>
                     `;
-                    tableBody.appendChild(tr);
+                    table.appendChild(tr);
                 }
             });
         }
-		 // Botón "Añadir" para enviar ítems a lista.html
+// Botón "Añadir" para enviar ítems a lista.html
         addToListButton.addEventListener('click', () => {
             if (selectedItem) {
-                const priceType = document.querySelector('#price-option').value;
-                const price = parseFloat(selectedItem[priceType]);
-                const priceLabel = document.querySelector('#price-option').options[
-                    document.querySelector('#price-option').selectedIndex
-                ].text;
+                const price = parseFloat(selectedItem.price); // Usar el único precio disponible
                 const quantity = parseInt(document.querySelector('#quantity').value, 10);
 
-                const finalName = `${selectedItem.name} (${priceLabel})`;
+                const finalName =
+                    selectedItem.name
 
                 const orderItem = {
                     name: finalName,
@@ -293,14 +285,13 @@
         });
 
         // Cargar el menú al iniciar
-
         document.getElementById('year').textContent = new Date().getFullYear();
         loadMenu();
     function googleTranslateElementInit() {
             // Inicio de la inicialización del widget de Google Translate
             new google.translate.TranslateElement({
                 pageLanguage: 'es',
-                includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
+               includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
             // Fin de la inicialización del widget de Google Translate
