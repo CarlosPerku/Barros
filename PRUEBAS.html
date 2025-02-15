@@ -80,11 +80,9 @@
             text-align: center;
             padding: 10px 0;
         }
-        #google_translate_element {
-              /* Ocultar la barra de Google Translate y el selector de idiomas */
-    .goog-te-banner-frame { display: none !important; }
-    .goog-te-gadget { display: none !important; 
-        }
+       /* TRADUCTOR: Ocultar la barra de Google Translate y el selector de idiomas */
+        .goog-te-banner-frame { display: none !important; }
+        .goog-te-gadget { display: none !important; }
     </style>
 	<script>
         //  Deshabilitar clic derecho
@@ -119,46 +117,50 @@
     </script>
 	
     <script type="text/javascript">
+      // TRADUCTOR: Función para cargar Google Translate
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'es',
-				autoDisplay: false,  // Evita que Google muestre automáticamente el banner de traducción
-        
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
+                pageLanguage: 'es', // Idioma original de la página
+                autoDisplay: false  // Evita que Google muestre automáticamente el banner de traducción
+            });
         }
 
+        // TRADUCTOR: Cargar el script de Google Translate
         (function() {
             var script = document.createElement('script');
             script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
             document.head.appendChild(script);
         })();
-		 function getUserLanguage() {
-        return navigator.language || navigator.userLanguage; // Obtener idioma del dispositivo
-    }
 
-        function saveLanguagePreference(lang) {
-            localStorage.setItem('preferredLanguage', lang);
+        // TRADUCTOR: Obtener el idioma del dispositivo
+        function getUserLanguage() {
+            let lang = navigator.language || navigator.userLanguage; // Obtener idioma del navegador
+            return lang.split('-')[0]; // Convertir "es-ES" a "es", "en-US" a "en"
         }
 
-         function applyLanguagePreference() {
-        let lang = getUserLanguage();
+        // TRADUCTOR: Aplicar la traducción automática
+        function applyLanguagePreference() {
+            setTimeout(() => {
+                let lang = getUserLanguage();
+                let googleLangMap = {
+                    "es": "es", "en": "en", "fr": "fr", "de": "de", "pt": "pt", "uk": "uk",
+                    "zh": "zh-CN", "zh-TW": "zh-TW"
+                };
 
-        setTimeout(() => {
-            let frame = document.querySelector('iframe.goog-te-banner-frame');
-            if (frame) frame.style.display = 'none'; // Oculta la barra superior de Google Translate
-            
-            let select = document.querySelector('.goog-te-combo');
-            if (select) {
-                select.value = lang;
-                select.dispatchEvent(new Event('change')); // Forzar cambio de idioma
-            }
-        }, 3000); // Esperar a que Google Translate cargue completamente
-    }
+                let targetLang = googleLangMap[lang] || "en"; // Si no está en la lista, usar inglés por defecto
 
-        window.addEventListener('load', () => {
-            setTimeout(() => applyLanguagePreference(), 3000);
-        });
+                let select = document.querySelector('.goog-te-combo');
+                if (select) {
+                    select.value = targetLang;
+                    select.dispatchEvent(new Event('change')); // Forzar cambio de idioma
+                }
+
+                let frame = document.querySelector('iframe.goog-te-banner-frame');
+                if (frame) frame.style.display = 'none'; // Ocultar la barra superior de Google Translate
+            }, 5000); // Esperar a que Google Translate cargue completamente
+        }
+
+        window.addEventListener('load', applyLanguagePreference);
     </script>
 </head>
 <body>
