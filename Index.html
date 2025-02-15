@@ -80,12 +80,9 @@
             text-align: center;
             padding: 10px 0;
         }
-        #google_translate_element {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+       /* TRADUCTOR: Ocultar la barra de Google Translate y el selector de idiomas */
+        .goog-te-banner-frame { display: none !important; }
+        .goog-te-gadget { display: none !important; }
     </style>
 	<script>
         //  Deshabilitar clic derecho
@@ -118,39 +115,50 @@
             }
         });
     </script>
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
+	
+    <script>
+
+        // TRADUCTOR: Función para obtener el idioma del dispositivo
+        function getUserLanguage() {
+            let lang = navigator.language || navigator.userLanguage;
+            return lang.split('-')[0]; // Convertir "es-ES" a "es", "en-US" a "en"
         }
 
+        // TRADUCTOR: Inicialización de Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'es', autoDisplay: false }, 'google_translate_element');
+        }
+
+        // TRADUCTOR: Cargar el script de Google Translate
         (function() {
             var script = document.createElement('script');
             script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
             document.head.appendChild(script);
         })();
 
-        function saveLanguagePreference(lang) {
-            localStorage.setItem('preferredLanguage', lang);
-        }
-
+        // TRADUCTOR: Aplicar traducción automática al idioma del dispositivo
         function applyLanguagePreference() {
-            const preferredLanguage = localStorage.getItem('preferredLanguage');
-            if (preferredLanguage) {
-                const select = document.querySelector('.goog-te-combo');
+            setTimeout(() => {
+                let lang = getUserLanguage();
+                let googleLangMap = {
+                    "es": "es", "en": "en", "fr": "fr", "de": "de", "pt": "pt", "uk": "uk",
+                    "zh": "zh-CN", "zh-TW": "zh-TW"
+                };
+
+                let targetLang = googleLangMap[lang] || "en"; // Si no está en la lista, usar inglés por defecto
+
+                let select = document.querySelector('.goog-te-combo');
                 if (select) {
-                    select.value = preferredLanguage;
-                    select.dispatchEvent(new Event('change'));
+                    select.value = targetLang;
+                    select.dispatchEvent(new Event('change')); // Forzar cambio de idioma
                 }
-            }
+
+                let frame = document.querySelector('iframe.goog-te-banner-frame');
+                if (frame) frame.style.display = 'none'; // Ocultar la barra superior de Google Translate
+            }, 4000); // Esperar a que Google Translate cargue completamente
         }
 
-        window.addEventListener('load', () => {
-            setTimeout(() => applyLanguagePreference(), 3000);
-        });
+        window.addEventListener('load', applyLanguagePreference);
     </script>
 </head>
 <body>
@@ -173,7 +181,7 @@
             <a href="Picabarros.html"><button>PicaBarros</button></a>
             <a href="Postres.html"><button>Momentos Dulces</button></a>
         </div>
-        <!-- Widget de Google Translate -->
+        <!-- TRADUCTOR: Widget de Google Translate -->
         <div id="google_translate_element"></div>
     </main>
 
