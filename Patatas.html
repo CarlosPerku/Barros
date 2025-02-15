@@ -331,7 +331,7 @@
             // Inicio de la inicialización del widget de Google Translate
             new google.translate.TranslateElement({
                 pageLanguage: 'es',
-                includedLanguages: 'es,en,fr,de,pt-PT,uk,zh-CN,zh-TW',
+                autoDisplay: false, // No limita idiomas, usa los de Google Translate
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
             // Fin de la inicialización del widget de Google Translate
