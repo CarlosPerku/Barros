@@ -116,13 +116,17 @@
         });
     </script>
 	
-    <script type="text/javascript">
-      // TRADUCTOR: Función para cargar Google Translate
+    <script>
+
+        // TRADUCTOR: Función para obtener el idioma del dispositivo
+        function getUserLanguage() {
+            let lang = navigator.language || navigator.userLanguage;
+            return lang.split('-')[0]; // Convertir "es-ES" a "es", "en-US" a "en"
+        }
+
+        // TRADUCTOR: Inicialización de Google Translate
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es', // Idioma original de la página
-                autoDisplay: false  // Evita que Google muestre automáticamente el banner de traducción
-            });
+            new google.translate.TranslateElement({ pageLanguage: 'es', autoDisplay: false }, 'google_translate_element');
         }
 
         // TRADUCTOR: Cargar el script de Google Translate
@@ -132,13 +136,7 @@
             document.head.appendChild(script);
         })();
 
-        // TRADUCTOR: Obtener el idioma del dispositivo
-        function getUserLanguage() {
-            let lang = navigator.language || navigator.userLanguage; // Obtener idioma del navegador
-            return lang.split('-')[0]; // Convertir "es-ES" a "es", "en-US" a "en"
-        }
-
-        // TRADUCTOR: Aplicar la traducción automática
+        // TRADUCTOR: Aplicar traducción automática al idioma del dispositivo
         function applyLanguagePreference() {
             setTimeout(() => {
                 let lang = getUserLanguage();
@@ -157,7 +155,7 @@
 
                 let frame = document.querySelector('iframe.goog-te-banner-frame');
                 if (frame) frame.style.display = 'none'; // Ocultar la barra superior de Google Translate
-            }, 5000); // Esperar a que Google Translate cargue completamente
+            }, 4000); // Esperar a que Google Translate cargue completamente
         }
 
         window.addEventListener('load', applyLanguagePreference);
@@ -183,7 +181,7 @@
             <a href="Picabarros.html"><button>PicaBarros</button></a>
             <a href="Postres.html"><button>Momentos Dulces</button></a>
         </div>
-        <!-- Widget de Google Translate -->
+        <!-- TRADUCTOR: Widget de Google Translate -->
         <div id="google_translate_element"></div>
     </main>
 
