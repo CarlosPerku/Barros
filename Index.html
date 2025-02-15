@@ -137,30 +137,25 @@
         })();
 
         // TRADUCTOR: Aplicar traducción automática al idioma del dispositivo
-        function applyLanguagePreference() {
-            setTimeout(() => {
-                let savedLang = localStorage.getItem('preferredLanguage'); // Verificar si hay un idioma guardado
-                let detectedLang = getUserLanguage();
-                
-                let googleLangMap = {
-                    "es": "es", "en": "en", "fr": "fr", "de": "de", "pt": "pt", "uk": "uk",
-                    "zh": "zh-CN", "zh-TW": "zh-TW"
-                };
+       function applyLanguagePreference() {
+    setTimeout(() => {
+        let savedLang = localStorage.getItem('preferredLanguage'); // Verifica si hay un idioma guardado
+        let detectedLang = getUserLanguage(); // Detecta el idioma del usuario
 
-                let targetLang = savedLang || googleLangMap[detectedLang] || "en"; // Usar el guardado o detectar
+        let targetLang = savedLang || detectedLang || "en"; // Usa el guardado, detectado o inglés por defecto
 
-                localStorage.setItem('preferredLanguage', targetLang); // Guardar para futuras cargas
+        localStorage.setItem('preferredLanguage', targetLang); // Guarda el idioma para futuras visitas
 
-                let select = document.querySelector('.goog-te-combo');
-                if (select) {
-                    select.value = targetLang;
-                    select.dispatchEvent(new Event('change')); // Aplicar idioma
-                }
-
-                let frame = document.querySelector('iframe.goog-te-banner-frame');
-                if (frame) frame.style.display = 'none'; // Ocultar la barra de Google Translate
-            }, 3000); 
+        let select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = targetLang; // Aplica el idioma detectado
+            select.dispatchEvent(new Event('change')); // Forzar cambio de idioma
         }
+
+        let frame = document.querySelector('iframe.goog-te-banner-frame');
+        if (frame) frame.style.display = 'none'; // Oculta la barra de Google Translate
+    }, 3000); // Esperar a que Google Translate cargue completamente
+}
         window.addEventListener('load', applyLanguagePreference);
     </script>
 </head>
