@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mamma Mia - Carta Barros</title>
+    <style>
+        body {
+            font-family: "Noteworthy", Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+			padding-bottom: 60px; /* Ajusta este valor al tamaño del pie de página */
+        }
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        header img {
+            height: 40px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .menu-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            cursor: pointer;
+            user-select: none;
+            z-index: 1100;
+        }
+        .menu-icon:hover {
+            color: #f4a261;
+        }
+        nav {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 300px;
+            background-color: rgba(44, 44, 44, 0.95);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+            padding: 20px;
+            text-align: center;
+        }
+        nav.open {
+            display: block;
+        }
+        nav .menu-button {
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            margin: 10px 0; /* Espaciado adecuado entre botones */
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+            background-color: #f4a261;
+            border-radius: 5px;
+        }
+		#google_translate_element {
+            margin-top: 15px;
+        } /* Widget de Google Translate */
+        nav .menu-button:hover {
+            background-color: #e76f51;
+        }
+        button {
+            background-color: #f4a261;
+            border: none;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0; /* Espaciado vertical */
+            font-size: 1rem;
+            width: 90%; /* Ocupa el 90% del ancho del contenedor */
+            max-width: 300px;
+        }
+        button:hover {
+            background-color: #e76f51;
+        }
+        main {
+            text-align: center;
+            margin-top: 80px;
+        }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #2c2c2c;
+            color: white;
+            font-size: 8pt;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+	<script>
+        //  Deshabilitar clic derecho
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            
+        });
+
+        //  Bloquear DevTools parcialmente
+        document.addEventListener('keydown', function(e) {
+            // Bloquear F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                
+            }
+            // Bloquear Ctrl+Shift+I
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                
+            }
+            // Bloquear Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+                e.preventDefault();
+                
+            }
+            // Bloquear Ctrl+U
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+               
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Cabecera -->
+    <header>
+        <img src="LogoBarros.png" alt="Logo Barros" onclick="location.href='Index.html';">
+		<!-- Inicio del botón del carrito -->
+        <i class="cart-icon" onclick="location.href='Lista.html';">🛒</i>
+        <!-- Fin del botón del carrito -->
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <!-- Menú flotante -->
+    <nav id="menu">
+        <a href="Index.html" class="menu-button">Menú Principal</a>
+        <a href="Desayunos.html" class="menu-button">Desayunos y Meriendas</a>
+        <a href="EntrePanes.html" class="menu-button">Entre Panes</a>
+        <a href="Ensaladas.html" class="menu-button">Piensa en Verde</a>
+        <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
+		<a href="MammaMia.html" class="menu-button">Mamma Mia</a>
+        <a href="Picabarros.html" class="menu-button">PicaBarros</a>
+        <a href="Postres.html" class="menu-button">Momentos Dulces</a>
+		<!-- Inicio del Widget de Google Translate -->
+        <div id="google_translate_element"></div>
+        <!-- Fin del Widget de Google Translate -->
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main>
+        <h1>Mamma Mia</h1>
+        <a href="Pizzas.html"><button>Pizzas</button></a>
+        <a href="Pastas.html"><button>Pastas</button></a>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer>
+        © <span id="year"></span> Barros A Guarda
+    </footer>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const menu = document.getElementById('menu');
+
+        // Alternar apertura/cierre del menú
+        function toggleMenu() {
+            menu.classList.toggle('open');
+            menuIcon.textContent = menu.classList.contains('open') ? '✖' : '☰';
+        }
+
+        // Actualizar el año automáticamente en el pie de página
+        document.getElementById('year').textContent = new Date().getFullYear();
+    function googleTranslateElementInit() {
+            // Inicio de la inicialización del widget de Google Translate
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',
+                autoDisplay: false,  // No limita idiomas, usa los de Google Translate
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+            // Fin de la inicialización del widget de Google Translate
+        }
+
+        function saveLanguagePreference(lang) {
+            // Inicio: Guardar preferencia del idioma seleccionado en localStorage
+            localStorage.setItem('selectedLanguage', lang);
+            // Fin: Guardar preferencia del idioma seleccionado
+        }
+
+        function applySavedLanguage() {
+            // Inicio: Aplicar el idioma guardado en todas las páginas
+            const lang = localStorage.getItem('selectedLanguage');
+            if (lang) {
+                const googleTranslateIframe = document.querySelector('iframe.goog-te-banner-frame');
+                if (googleTranslateIframe) {
+                    googleTranslateIframe.contentWindow.location.reload();
+                }
+            }
+            // Fin: Aplicar idioma guardado
+        }
+
+        window.addEventListener('load', () => {
+            // Inicio: Ajuste dinámico del header según la barra de Google Translate
+            const googleTranslateObserver = new MutationObserver(() => {
+                const translateBanner = document.querySelector('.goog-te-banner-frame');
+                if (translateBanner) {
+                    header.style.top = `${translateBanner.offsetHeight}px`;
+                } else {
+                    header.style.top = '0px';
+                }
+            });
+
+            googleTranslateObserver.observe(document.body, { childList: true, subtree: true });
+            // Fin: Ajuste dinámico del header
+        });
+
+        applySavedLanguage();
+    </script>
+    <!-- Script de Google Translate -->
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <!-- Fin del Script de Google Translate -->
+</body>
+</html>
