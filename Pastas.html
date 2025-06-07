@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ensaladas - Carta Barros</title>
+    <title>Pastas - Carta Barros</title>
     <style>
         body {
             font-family: "Noteworthy", Helvetica, Arial, sans-serif;
@@ -211,6 +211,7 @@
         <a href="EntrePanes.html" class="menu-button">Entre Panes</a>
         <a href="Ensaladas.html" class="menu-button">Piensa en Verde</a>
         <a href="Platos.html" class="menu-button">Con Cuchillo y Tenedor</a>
+		<a href="MammaMia.html" class="menu-button">Mamma Mia</a>
         <a href="Picabarros.html" class="menu-button">PicaBarros</a>
         <a href="Postres.html" class="menu-button">Momentos Dulces</a>
 		<!-- Inicio del Widget de Google Translate -->
@@ -219,7 +220,7 @@
     </nav>
 
     <div class="menu-section">
-        <h2>Ensaladas</h2>
+        <h2>Pastas</h2>
         <table id="menu-table"></table>
     </div>
 
@@ -274,7 +275,7 @@
         // Cargar datos del CSV
 
         async function loadMenu() {
-            const response = await fetch('ensalada.csv');
+            const response = await fetch('pasta.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
