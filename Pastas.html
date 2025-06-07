@@ -275,7 +275,7 @@
         // Cargar datos del CSV
 
         async function loadMenu() {
-            const response = await fetch('pasta.csv');
+            const response = await fetch('Pasta.csv');
             const data = await response.text();
             const rows = data.split('\n').slice(1);
 
